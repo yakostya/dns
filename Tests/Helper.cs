@@ -12,5 +12,9 @@ namespace DNS.Tests {
 
             return File.ReadAllBytes(path);
         }
+
+        public static T[] GetArray<T>(params T[] parameters) {
+            return parameters;
+        }
     }
 }
