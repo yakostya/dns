@@ -70,11 +70,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\ParseDomainTest.cs" />
     <Compile Include="Protocol\ParseQuestionTest.cs" />
+    <Compile Include="Protocol\ParseRequestTest.cs" />
     <Compile Include="Protocol\ReverseDomainTest.cs" />
     <Compile Include="Protocol\SerializeDomainTest.cs" />
     <Compile Include="Protocol\SerializeHeaderTest.cs" />
     <Compile Include="Protocol\ParseHeaderTest.cs" />
     <Compile Include="Protocol\SerializeQuestionTest.cs" />
+    <Compile Include="Protocol\SerializeRequestTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NUnit\nunit-console-runner.dll" />
