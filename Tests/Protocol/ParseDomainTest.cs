@@ -41,7 +41,7 @@ namespace DNS.Tests.Protocol {
         [Test]
         public void DomainWithMultipleLabelsPreceededByHeader() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Domain", "empty-header.www.google.com-label");
+            byte[] content = Helper.ReadFixture("Domain", "empty-header_www.google.com-label");
             Domain domain = Domain.FromArray(content, 12, out endOffset);
 
             Assert.AreEqual("www.google.com", domain.ToString());
@@ -85,7 +85,7 @@ namespace DNS.Tests.Protocol {
         [Test]
         public void PointerDomainWithMultipleLabelsPreceededByHeader() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Domain", "empty-header.www.google.com-pointer");
+            byte[] content = Helper.ReadFixture("Domain", "empty-header_www.google.com-pointer");
             Domain domain = Domain.FromArray(content, 28, out endOffset);
 
             Assert.AreEqual("www.google.com", domain.ToString());

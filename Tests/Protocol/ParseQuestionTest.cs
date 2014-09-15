@@ -9,7 +9,7 @@ namespace DNS.Tests.Protocol {
         [Test]
         public void BasicQuestionWithEmptyDomain() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "empty-domain.basic");
+            byte[] content = Helper.ReadFixture("Question", "empty-domain_basic");
             Question question = Question.FromArray(content, 0, out endOffset);
 
             Assert.AreEqual("", question.Name.ToString());
@@ -22,7 +22,7 @@ namespace DNS.Tests.Protocol {
         [Test]
         public void CNameQuestionWithEmptyDomain() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "empty-domain.cname");
+            byte[] content = Helper.ReadFixture("Question", "empty-domain_cname");
             Question question = Question.FromArray(content, 0, out endOffset);
 
             Assert.AreEqual("", question.Name.ToString());
@@ -35,7 +35,7 @@ namespace DNS.Tests.Protocol {
         [Test]
         public void AnyQuestionWithEmptyDomain() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "empty-domain.any");
+            byte[] content = Helper.ReadFixture("Question", "empty-domain_any");
             Question question = Question.FromArray(content, 0, out endOffset);
 
             Assert.AreEqual("", question.Name.ToString());
@@ -48,7 +48,7 @@ namespace DNS.Tests.Protocol {
         [Test]
         public void CNameAndAnyQuestionWithEmptyDomain() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "empty-domain.cname.any");
+            byte[] content = Helper.ReadFixture("Question", "empty-domain_cname-any");
             Question question = Question.FromArray(content, 0, out endOffset);
 
             Assert.AreEqual("", question.Name.ToString());
@@ -61,7 +61,7 @@ namespace DNS.Tests.Protocol {
         [Test]
         public void BasicQuestionWithMultipleLabelDomain() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "www.google.com-basic");
+            byte[] content = Helper.ReadFixture("Question", "www.google.com_basic");
             Question question = Question.FromArray(content, 0, out endOffset);
 
             Assert.AreEqual("www.google.com", question.Name.ToString());
@@ -74,7 +74,7 @@ namespace DNS.Tests.Protocol {
         [Test]
         public void CNameAndAnyQuestionWithMultipleLabelDomainPreceededByHeader() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "empty-header.www.google.com-cname.any");
+            byte[] content = Helper.ReadFixture("Question", "empty-header_www.google.com_cname-any");
             Question question = Question.FromArray(content, 12, out endOffset);
 
             Assert.AreEqual("www.google.com", question.Name.ToString());
