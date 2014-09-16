@@ -20,6 +20,19 @@ namespace DNS.Tests.Protocol {
         }
 
         [Test]
+        public void BasicQuestionWithMultipleLabelDomain() {
+            int endOffset = 0;
+            byte[] content = Helper.ReadFixture("Question", "www.google.com_basic");
+            Question question = Question.FromArray(content, 0, out endOffset);
+
+            Assert.AreEqual("www.google.com", question.Name.ToString());
+            Assert.AreEqual(RecordType.A, question.Type);
+            Assert.AreEqual(RecordClass.IN, question.Class);
+            Assert.AreEqual(20, question.Size);
+            Assert.AreEqual(20, endOffset);
+        }
+
+        [Test]
         public void CNameQuestionWithEmptyDomain() {
             int endOffset = 0;
             byte[] content = Helper.ReadFixture("Question", "empty-domain_cname");
@@ -46,42 +59,16 @@ namespace DNS.Tests.Protocol {
         }
 
         [Test]
-        public void CNameAndAnyQuestionWithEmptyDomain() {
+        public void AllSetQuestionWithMultipleLabelDomains() {
             int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "empty-domain_cname-any");
-            Question question = Question.FromArray(content, 0, out endOffset);
-
-            Assert.AreEqual("", question.Name.ToString());
-            Assert.AreEqual(RecordType.CNAME, question.Type);
-            Assert.AreEqual(RecordClass.ANY, question.Class);
-            Assert.AreEqual(5, question.Size);
-            Assert.AreEqual(5, endOffset);
-        }
-
-        [Test]
-        public void BasicQuestionWithMultipleLabelDomain() {
-            int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "www.google.com_basic");
+            byte[] content = Helper.ReadFixture("Question", "www.google.com_all");
             Question question = Question.FromArray(content, 0, out endOffset);
 
             Assert.AreEqual("www.google.com", question.Name.ToString());
-            Assert.AreEqual(RecordType.A, question.Type);
-            Assert.AreEqual(RecordClass.IN, question.Class);
+            Assert.AreEqual(RecordType.CNAME, question.Type);
+            Assert.AreEqual(RecordClass.ANY, question.Class);
             Assert.AreEqual(20, question.Size);
             Assert.AreEqual(20, endOffset);
-        }
-
-        [Test]
-        public void CNameAndAnyQuestionWithMultipleLabelDomainPreceededByHeader() {
-            int endOffset = 0;
-            byte[] content = Helper.ReadFixture("Question", "empty-header_www.google.com_cname-any");
-            Question question = Question.FromArray(content, 12, out endOffset);
-
-            Assert.AreEqual("www.google.com", question.Name.ToString());
-            Assert.AreEqual(RecordType.CNAME, question.Type);
-            Assert.AreEqual(RecordClass.ANY, question.Class);
-            Assert.AreEqual(20, question.Size);
-            Assert.AreEqual(32, endOffset);
         }
 
         [Test]
