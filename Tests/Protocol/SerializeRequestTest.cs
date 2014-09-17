@@ -7,7 +7,7 @@ namespace DNS.Tests.Protocol {
     [TestFixture]
     public class SerializeRequestTest {
         [Test]
-        public void BasicRequestWithEmptyHeaderAndEmptyDomain() {
+        public void BasicQuestionRequestWithEmptyHeader() {
             Header header = new Header();
 
             Domain domain = new Domain(Helper.GetArray<string>());
@@ -16,16 +16,31 @@ namespace DNS.Tests.Protocol {
 
             Request request = new Request(header, questions);
 
-            byte[] content = Helper.ReadFixture("Request", "empty-header_empty-domain_basic");
+            byte[] content = Helper.ReadFixture("Request", "empty-header_basic-question");
 
             CollectionAssert.AreEqual(content, request.ToArray());
         }
 
         [Test]
-        public void InitiateRequestUsingHeaderAssignment() {
+        public void BasicQuestionRequestWithHeader() {
             Header header = new Header();
-            header.Id = 1;
-            header.RecursionDesired = true;
+
+            Domain domain = new Domain(Helper.GetArray<string>());
+            Question question = new Question(domain, RecordType.A, RecordClass.IN);
+            List<Question> questions = new List<Question>(Helper.GetArray(question));
+
+            Request request = new Request(header, questions);
+            request.Id = 1;
+            request.RecursionDesired = true;
+
+            byte[] content = Helper.ReadFixture("Request", "id-rd_basic-question");
+
+            CollectionAssert.AreEqual(content, request.ToArray());
+        }
+
+        [Test]
+        public void SingleQuestionRequestWithEmptyHeader() {
+            Header header = new Header();
 
             Domain domain = new Domain(Helper.GetArray("www", "google", "com"));
             Question question = new Question(domain, RecordType.CNAME, RecordClass.IN);
@@ -33,24 +48,24 @@ namespace DNS.Tests.Protocol {
 
             Request request = new Request(header, questions);
 
-            byte[] content = Helper.ReadFixture("Request", "id-rd_www.google.com_cname");
+            byte[] content = Helper.ReadFixture("Request", "empty-header_www.google.com-cname");
 
             CollectionAssert.AreEqual(content, request.ToArray());
         }
 
         [Test]
-        public void InitiateRequestUsingInstanceAssignment() {
+        public void SingleQuestionRequestWithHeader() {
             Header header = new Header();
 
             Domain domain = new Domain(Helper.GetArray("www", "google", "com"));
             Question question = new Question(domain, RecordType.CNAME, RecordClass.IN);
+            List<Question> questions = new List<Question>(Helper.GetArray(question));
 
-            Request request = new Request(header, new List<Question>());
+            Request request = new Request(header, questions);
             request.Id = 1;
             request.RecursionDesired = true;
-            request.Questions.Add(question);
 
-            byte[] content = Helper.ReadFixture("Request", "id-rd_www.google.com_cname");
+            byte[] content = Helper.ReadFixture("Request", "id-rd_www.google.com-cname");
 
             CollectionAssert.AreEqual(content, request.ToArray());
         }
@@ -71,7 +86,7 @@ namespace DNS.Tests.Protocol {
             request.Questions.Add(question1);
             request.Questions.Add(question2);
 
-            byte[] content = Helper.ReadFixture("Request", "id-rd_multiple-questions");
+            byte[] content = Helper.ReadFixture("Request", "multiple-questions");
 
             CollectionAssert.AreEqual(content, request.ToArray());
         }
