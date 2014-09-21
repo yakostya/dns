@@ -12,43 +12,11 @@ namespace DNS.Tests.Protocol {
 
             Domain domain = new Domain(Helper.GetArray<string>());
             Question question = new Question(domain, RecordType.A, RecordClass.IN);
-            List<Question> questions = new List<Question>(Helper.GetArray(question));
+            IList<Question> questions = Helper.GetList(question);
 
             Request request = new Request(header, questions);
 
             byte[] content = Helper.ReadFixture("Request", "empty-header_basic-question");
-
-            CollectionAssert.AreEqual(content, request.ToArray());
-        }
-
-        [Test]
-        public void BasicQuestionRequestWithHeader() {
-            Header header = new Header();
-
-            Domain domain = new Domain(Helper.GetArray<string>());
-            Question question = new Question(domain, RecordType.A, RecordClass.IN);
-            List<Question> questions = new List<Question>(Helper.GetArray(question));
-
-            Request request = new Request(header, questions);
-            request.Id = 1;
-            request.RecursionDesired = true;
-
-            byte[] content = Helper.ReadFixture("Request", "id-rd_basic-question");
-
-            CollectionAssert.AreEqual(content, request.ToArray());
-        }
-
-        [Test]
-        public void SingleQuestionRequestWithEmptyHeader() {
-            Header header = new Header();
-
-            Domain domain = new Domain(Helper.GetArray("www", "google", "com"));
-            Question question = new Question(domain, RecordType.CNAME, RecordClass.IN);
-            List<Question> questions = new List<Question>(Helper.GetArray(question));
-
-            Request request = new Request(header, questions);
-
-            byte[] content = Helper.ReadFixture("Request", "empty-header_www.google.com-cname");
 
             CollectionAssert.AreEqual(content, request.ToArray());
         }
@@ -59,7 +27,7 @@ namespace DNS.Tests.Protocol {
 
             Domain domain = new Domain(Helper.GetArray("www", "google", "com"));
             Question question = new Question(domain, RecordType.CNAME, RecordClass.IN);
-            List<Question> questions = new List<Question>(Helper.GetArray(question));
+            IList<Question> questions = Helper.GetList(question);
 
             Request request = new Request(header, questions);
             request.Id = 1;

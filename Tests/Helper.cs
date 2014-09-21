@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace DNS.Tests {
@@ -15,6 +16,10 @@ namespace DNS.Tests {
 
         public static T[] GetArray<T>(params T[] parameters) {
             return parameters;
+        }
+
+        public static IList<T> GetList<T>(params T[] parameters) {
+            return new List<T>(parameters);
         }
     }
 }

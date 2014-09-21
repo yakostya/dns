@@ -71,8 +71,10 @@
     <Compile Include="Protocol\ParseDomainTest.cs" />
     <Compile Include="Protocol\ParseQuestionTest.cs" />
     <Compile Include="Protocol\ParseRequestTest.cs" />
+    <Compile Include="Protocol\ParseResponseTest.cs" />
     <Compile Include="Protocol\ResourceRecords\ParseResourceRecordTest.cs" />
     <Compile Include="Protocol\ResourceRecords\SerializeResourceRecordTest.cs" />
+    <Compile Include="Protocol\SerializeResponseTest.cs" />
     <Compile Include="Protocol\ReverseDomainTest.cs" />
     <Compile Include="Protocol\SerializeDomainTest.cs" />
     <Compile Include="Protocol\SerializeHeaderTest.cs" />
